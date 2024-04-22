@@ -45,6 +45,7 @@ Point TSignalLine::at(unsigned int index){ return _points[index]; }
 
 // TODO: Make it work with different initPhases (more than inaccuracy) + see also other files that using eqlals() method
 // TODO: Make accuracy work when params are equal to 0
+// TODO: Move inacuracy to args
 bool TSignalLine::equals(TSignalLine* sl) {
 	double left, right;
 
