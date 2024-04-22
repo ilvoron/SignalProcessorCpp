@@ -11,6 +11,8 @@ const double inaccuracy = 0.05;
 //    PUBLIC
 // ************
 
+// ПЕРЕДЕЛАТЬ ОБРАТНО В ТОЧКИ???
+
 TSignalLine::TSignalLine(double time, double oscillationFreq, double initPhase, double offsetY, double amplitude, double samplingFreq) {
 	_time = time;
 	_oscillationFreq = oscillationFreq;
@@ -22,15 +24,25 @@ TSignalLine::TSignalLine(double time, double oscillationFreq, double initPhase, 
 	_points = new Point[_pointsCount];
 }
 
-// TODO: Make autodetect NULL values
+// TODO: Make autodetect NULL values???
+TSignalLine::TSignalLine(double time, double samplingFreq, unsigned int pointsCount) {
+	_time = time;
+	_samplingFreq = samplingFreq;
+	_pointsCount = pointsCount;
+	_points = new Point[_pointsCount];
+}
+
+// TODO: Make autodetect NULL values???
 TSignalLine::TSignalLine(double time, double samplingFreq) {
 	_time = time;
-	_oscillationFreq = NULL;
-	_initPhase = NULL;
-	_offsetY = NULL;
-	_amplitude = NULL;
 	_samplingFreq = samplingFreq;
 	_pointsCount = ceil(time * samplingFreq);
+	_points = new Point[_pointsCount];
+}
+
+// TODO: Make autodetect NULL values???
+TSignalLine::TSignalLine(unsigned int pointsCount) {
+	_pointsCount = pointsCount;
 	_points = new Point[_pointsCount];
 }
 

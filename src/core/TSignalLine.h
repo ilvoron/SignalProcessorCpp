@@ -10,7 +10,9 @@ class TSignalLine{
 	public:
 		// TODO: Make default params
 		TSignalLine(double time, double oscillationFreq, double initPhase, double offsetY, double amplitude, double samplingFreq);
+		TSignalLine(double time, double samplingFreq, unsigned int pointsCount);
 		TSignalLine(double time, double samplingFreq);
+		TSignalLine(unsigned int pointsCount);
 		~TSignalLine();
 		void set(unsigned int index, double x, double y);
 		Point at(unsigned int index);
