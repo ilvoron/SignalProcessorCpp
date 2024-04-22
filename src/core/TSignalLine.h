@@ -8,10 +8,13 @@ struct Point{
 
 class TSignalLine{
 	public:
-		TSignalLine(double time, double oscillationFreq, double initPhase = 0, double offsetY = 0, double amplitude = 1, double samplingFreq = 1000);
+		// TODO: Make default params
+		TSignalLine(double time, double oscillationFreq, double initPhase, double offsetY, double amplitude, double samplingFreq);
+		TSignalLine(double time, double samplingFreq);
 		~TSignalLine();
 		void set(unsigned int index, double x, double y);
 		Point at(unsigned int index);
+		bool equals(TSignalLine* sl);
 		unsigned int pointsCount();
 		double time();
 		double oscillationFreq();
