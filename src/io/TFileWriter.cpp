@@ -4,7 +4,7 @@
 
 // PUBLIC
 
-TFileWriter::TFileWriter(const TSignalLine* signalLine, const std::string& filePath)
+TFileWriter::TFileWriter(const TSignalLine* signalLine, const std::string filePath)
 	: _params{signalLine, filePath} {}
 
 TFileWriter::TFileWriter(TFileWriterParams params)

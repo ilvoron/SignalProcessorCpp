@@ -3,15 +3,13 @@
 
 /**
  * @brief Parameters for configuring the GnuPlot viewer.
- * 
- * This structure contains the parameters needed to plot a signal using GnuPlot.
  */
 struct TGnuPlotViewerParams {
-	const std::string& filePath = "";           ///< Path to the file containing the signal data (default: "").
-	const std::string& gnuPlotPath = "gnuplot"; ///< Path to the GnuPlot executable (default: "gnuplot").
-	const std::string& xLabel = "X axis";       ///< Label for the X axis (default: "X axis").
-	const std::string& yLabel = "Y axis";       ///< Label for the Y axis (default: "Y axis").
-	const std::string& graphLabel = "Graph";    ///< Label for the graph (default: "Graph").
+	const std::string filePath = "";           ///< Path to the file containing the signal data (default: "").
+	const std::string gnuPlotPath = "gnuplot"; ///< Path to the GnuPlot executable (default: "gnuplot").
+	const std::string xLabel = "X axis";       ///< Label for the X axis (default: "X axis").
+	const std::string yLabel = "Y axis";       ///< Label for the Y axis (default: "Y axis").
+	const std::string graphLabel = "Graph";    ///< Label for the graph (default: "Graph").
 };
 
 /**
@@ -32,11 +30,11 @@ class TGnuPlotViewer {
 		 * @param yLabel The label for the Y axis (default: "Y axis").
 		 * @param graphLabel The label for the graph (default: "Graph").
 		 */
-		TGnuPlotViewer(const std::string& filePath,
-		               const std::string& gnuPlotPath = "gnuplot",
-		               const std::string& xLabel = "X axis",
-		               const std::string& yLabel = "Y axis",
-		               const std::string& graphLabel = "Graph");
+		TGnuPlotViewer(const std::string filePath,
+		               const std::string gnuPlotPath = "gnuplot",
+		               const std::string xLabel = "X axis",
+		               const std::string yLabel = "Y axis",
+		               const std::string graphLabel = "Graph");
 
 		/**
 		 * @brief Constructs a TGnuPlotViewer using a TGnuPlotViewerParams object.
@@ -46,9 +44,7 @@ class TGnuPlotViewer {
 		TGnuPlotViewer(TGnuPlotViewerParams params);
 
 		/**
-		 * @brief Destructor for the TGnuPlotViewer object.
-		 * 
-		 * Default destructor as no custom resource management is required.
+		 * @brief Default destructor.
 		 */
 		~TGnuPlotViewer() = default;
 
@@ -59,6 +55,7 @@ class TGnuPlotViewer {
 		 */
 		const TGnuPlotViewerParams& getParams() const;
 
+		// TODO: Make parallel execution of GnuPlot process (std::thread or std::async)
 		/**
 		 * @brief Executes the GnuPlot visualization process.
 		 * 

@@ -5,11 +5,11 @@
 
 // PUBLIC
 
-TGnuPlotViewer::TGnuPlotViewer(const std::string& filePath,
-                               const std::string& gnuPlotPath,
-                               const std::string& xLabel,
-                               const std::string& yLabel,
-                               const std::string& graphLabel)
+TGnuPlotViewer::TGnuPlotViewer(const std::string filePath,
+                               const std::string gnuPlotPath,
+                               const std::string xLabel,
+                               const std::string yLabel,
+                               const std::string graphLabel)
 	: _params{filePath, gnuPlotPath, xLabel, yLabel, graphLabel} {}
 
 TGnuPlotViewer::TGnuPlotViewer(TGnuPlotViewerParams params)

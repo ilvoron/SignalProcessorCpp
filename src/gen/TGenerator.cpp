@@ -7,12 +7,12 @@ const double TWO_PI = 2 * M_PI;
 
 // PUBLIC
 
-TGenerator::TGenerator(double time, double oscillationFreq, double initPhase, double offsetY, double amplitude, double samplingFreq) 
-	: _sl(std::make_unique<TSignalLine>(time, oscillationFreq, initPhase, offsetY, amplitude, samplingFreq)),
-	  _params{time, oscillationFreq, initPhase, offsetY, amplitude, samplingFreq} {}
+TGenerator::TGenerator(double time, double oscillationFreq, double initPhase, double offsetY, double amplitude, double samplingFreq, std::string xLabel, std::string yLabel, std::string graphLabel)
+	: _sl(std::make_unique<TSignalLine>(time, oscillationFreq, initPhase, offsetY, amplitude, samplingFreq, xLabel, yLabel, graphLabel)),
+	  _params{time, oscillationFreq, initPhase, offsetY, amplitude, samplingFreq, xLabel, yLabel, graphLabel} {}
 
 TGenerator::TGenerator(TGeneratorParams params)
-	: _sl(std::make_unique<TSignalLine>(params.time, params.oscillationFreq, params.initPhase, params.offsetY, params.amplitude, params.samplingFreq)),
+	: _sl(std::make_unique<TSignalLine>(params.time, params.oscillationFreq, params.initPhase, params.offsetY, params.amplitude, params.samplingFreq, params.xLabel, params.yLabel, params.graphLabel)),
 	  _params(params) {}
 
 const TSignalLine* TGenerator::getSignalLine() const {

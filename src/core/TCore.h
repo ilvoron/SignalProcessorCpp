@@ -1,6 +1,11 @@
 #pragma once
 #include <stdexcept>
 
+// TODO: Add logging
+// TODO: Add caching
+// TODO: Add tests (unit)
+// TODO: ??? Add async computation ??? (std::thread or std::async or std::future)
+
 /**
  * @brief Macro that throws a SignalProcesserException with a custom message.
  * 

@@ -4,12 +4,10 @@
 
 /**
  * @brief Parameters for writing a signal line to a file.
- * 
- * This structure contains the necessary information for saving a signal line to a file.
  */
 struct TFileWriterParams {
 	const TSignalLine* signalLine = nullptr; ///< Pointer to the signal line to be written.
-	const std::string& filePath = "";        ///< Path to the file where the signal line will be saved.
+	const std::string filePath = "";        ///< Path to the file where the signal line will be saved.
 };
 
 /**
@@ -27,7 +25,7 @@ class TFileWriter {
 		 * @param signalLine Pointer to the signal line that will be written to the file.
 		 * @param filePath Path to the file where the signal line will be saved.
 		 */
-		TFileWriter(const TSignalLine* signalLine, const std::string& filePath);
+		TFileWriter(const TSignalLine* signalLine, const std::string filePath);
 
 		/**
 		 * @brief Constructs a TFileWriter using a TFileWriterParams object.
@@ -37,9 +35,7 @@ class TFileWriter {
 		TFileWriter(TFileWriterParams params);
 
 		/**
-		 * @brief Destructor for the TFileWriter object.
-		 * 
-		 * Default destructor as no custom resource management is required.
+		 * @brief Default destructor.
 		 */
 		~TFileWriter() = default;
 
@@ -50,6 +46,7 @@ class TFileWriter {
 		 */
 		const TFileWriterParams& getParams() const;
 
+		// TODO: Add check if file not empty
 		/**
 		 * @brief Executes the file writing process.
 		 * 
