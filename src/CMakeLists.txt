@@ -1,20 +1,25 @@
 cmake_minimum_required(VERSION 3.5)
 
-file(GLOB_RECURSE CORE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/core/*.cpp")
-file(GLOB_RECURSE IO_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/io/*.cpp")
-file(GLOB_RECURSE ANALYSIS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/analysis/*.cpp")
+set(DIRS "core" "gen" "io" "proc" "test")
+set(SOURCES "")
+set(HEADERS "")
+set(INCLUDE_DIRS "")
 
-file(GLOB_RECURSE CORE_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/core/*.h")
-file(GLOB_RECURSE IO_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/io/*.h")
-file(GLOB_RECURSE ANALYSIS_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/analysis/*.h")
+foreach(DIR ${DIRS})
+    file(GLOB_RECURSE DIR_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/${DIR}/*.cpp")
+    file(GLOB_RECURSE DIR_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/${DIR}/*.h")
+
+    list(APPEND SOURCES ${DIR_SOURCES})
+    list(APPEND HEADERS ${DIR_HEADERS})
+endforeach()
 
 add_library(lib
-	${CORE_SOURCES} ${IO_SOURCES} ${ANALYSIS_SOURCES}
-	${CORE_HEADERS} ${IO_HEADERS} ${ANALYSIS_HEADERS}
+    ${SOURCES}
+    ${HEADERS}
 )
 
-target_include_directories(lib PUBLIC
-	${CMAKE_CURRENT_SOURCE_DIR}/core
-	${CMAKE_CURRENT_SOURCE_DIR}/io
-	${CMAKE_CURRENT_SOURCE_DIR}/analysis
-)
+foreach(DIR ${DIRS})
+    list(APPEND INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${DIR}")
+endforeach()
+
+target_include_directories(lib PUBLIC ${INCLUDE_DIRS})

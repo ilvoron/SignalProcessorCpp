@@ -53,4 +53,5 @@ dkms.conf
 
 # [Custom]
 build
+.vscode
 *.bat

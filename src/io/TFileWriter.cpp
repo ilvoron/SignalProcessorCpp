@@ -1,24 +1,25 @@
+#include "TCore.h"
 #include "TFileWriter.h"
 #include <fstream>
 
-// ************
-//    PUBLIC
-// ************
+// PUBLIC
 
-TFileWriter::TFileWriter(TSignalLine* sl, std::string filePath) {
-	_sl = sl;
-	_filePath = filePath;
-}
+TFileWriter::TFileWriter(const TSignalLine* signalLine, const std::string& filePath)
+	: _params{signalLine, filePath} {}
 
-void TFileWriter::exec() {
-	std::ofstream file;
-	file.open(_filePath);
-	unsigned int pointsCount = _sl->pointsCount();
-	double x, y;
-	for (int i = 0; i < pointsCount; i++) {
-		x = _sl->at(i).x;
-		y = _sl->at(i).y;
-		file << x << '\t' << y << '\n';
+TFileWriter::TFileWriter(TFileWriterParams params)
+	: _params(params) {}
+
+const TFileWriterParams& TFileWriter::getParams() const { return _params; }
+
+void TFileWriter::execute() {
+	std::ofstream file(_params.filePath);
+	if (!file.is_open()) { THROW_SIGNAL_PROCESSOR_EXCEPTION("Can't open file: \"" + _params.filePath + "\""); }
+	if (_params.signalLine == nullptr) { THROW_SIGNAL_PROCESSOR_EXCEPTION("TSignalLine pointer is null"); }
+	Point point;
+	for (int i = 0; i < _params.signalLine->getParams().pointsCount; i++) {
+		point = _params.signalLine->getPoint(i);
+		file << point.x << '\t' << point.y << '\n';
 	}
 	file.close();
 }

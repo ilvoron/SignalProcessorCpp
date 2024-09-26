@@ -1,16 +1,62 @@
-#ifndef TFILEWRITER_H
-#define TFILEWRITER_H
-
+#pragma once
 #include "TSignalLine.h"
 #include <string>
 
-class TFileWriter {
-	public:
-		TFileWriter(TSignalLine* sl, std::string filePath);
-		void exec();
-	private:
-		TSignalLine* _sl;
-		std::string _filePath;
+/**
+ * @brief Parameters for writing a signal line to a file.
+ * 
+ * This structure contains the necessary information for saving a signal line to a file.
+ */
+struct TFileWriterParams {
+	const TSignalLine* signalLine = nullptr; ///< Pointer to the signal line to be written.
+	const std::string& filePath = "";        ///< Path to the file where the signal line will be saved.
 };
 
-#endif
+/**
+ * @class TFileWriter
+ * @brief Class responsible for writing a signal line to a file.
+ * 
+ * The TFileWriter class allows saving a signal line to a file at a specified location.
+ * It uses the signal line and file path provided either directly or through parameters.
+ */
+class TFileWriter {
+	public:
+		/**
+		 * @brief Constructs a TFileWriter with a signal line and file path.
+		 * 
+		 * @param signalLine Pointer to the signal line that will be written to the file.
+		 * @param filePath Path to the file where the signal line will be saved.
+		 */
+		TFileWriter(const TSignalLine* signalLine, const std::string& filePath);
+
+		/**
+		 * @brief Constructs a TFileWriter using a TFileWriterParams object.
+		 * 
+		 * @param params A structure containing the parameters, including the signal line and file path.
+		 */
+		TFileWriter(TFileWriterParams params);
+
+		/**
+		 * @brief Destructor for the TFileWriter object.
+		 * 
+		 * Default destructor as no custom resource management is required.
+		 */
+		~TFileWriter() = default;
+
+		/**
+		 * @brief Retrieves the parameters used for writing the signal line to a file.
+		 * 
+		 * @return const TFileWriterParams& A constant reference to the file writer parameters.
+		 */
+		const TFileWriterParams& getParams() const;
+
+		/**
+		 * @brief Executes the file writing process.
+		 * 
+		 * This method writes the signal line to the specified file.
+		 * It should be called after the file writer is properly configured with a signal line and file path.
+		 */
+		void execute();
+	private:
+		TFileWriterParams _params = {}; ///< Parameters for writing the signal line to the file.
+};
