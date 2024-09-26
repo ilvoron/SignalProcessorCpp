@@ -72,7 +72,7 @@ int main() {
 
 ## Dependencies
 
-- **C++11** or higher
+- **C++17** or higher
 - **GnuPlot**: Required for signal visualization
 - **CMake** & **Make**: For building the project
 
