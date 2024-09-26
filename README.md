@@ -1,4 +1,4 @@
-# Signal Processing and Visualization Library (SignalProcesserCPP)
+# Signal Processing Library (SignalProcesserCPP)
 
 This project provides a set of classes for signal generation, processing, file I/O, and visualization using GnuPlot. It is designed for handling basic signal processing tasks, managing signal parameters, and visualizing signals in a clear and flexible way.
 
