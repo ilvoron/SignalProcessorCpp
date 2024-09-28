@@ -1,4 +1,6 @@
 /**
+ * ? Make a method to setup gnu plot once (with only one argument - a path to
+ * gnuplot) and use it multiple times ?
  * TODO: add multiple graphs in one plot
  * TODO: ??? make constuctor more flexible and simple ??? get info from signal
  * line itself ???

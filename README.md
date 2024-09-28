@@ -71,7 +71,7 @@ int main() {
 
 int main() {
     // Set up visualization parameters and execute GnuPlot
-    TGnuPlotViewer viewer("output_signal.txt", "/usr/bin/gnuplot", "Time (s)", "Amplitude", "Generated Signal");
+    TGnuPlotViewer viewer("output_signal.txt", "Time (s)", "Amplitude", "Generated Signal", "/usr/bin/gnuplot");
     viewer.execute();
 
     return 0;
