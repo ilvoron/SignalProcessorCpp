@@ -8,7 +8,6 @@ This project provides a set of classes for signal generation, processing, file I
 -   **Signal Line Manipulation**: Modify and retrieve individual points of the signal.
 -   **File I/O**: Save generated signal lines to files and load them for further processing.
 -   **GnuPlot Visualization** (must be pre-installed): Easily visualize signal data using GnuPlot with configurable axis and graph labels.
--   **Custom Exception Handling**: Handle errors in signal processing with detailed exception messages.
 
 ## Installation
 
