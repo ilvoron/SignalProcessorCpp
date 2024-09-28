@@ -1,4 +1,4 @@
-#include "TSummator.h"
+#include "TMultiplier.h"
 #include "TCore.h"
 #include "TSignalLine.h"
 
@@ -10,33 +10,34 @@
  ** PUBLIC METHODS
  */
 
-TSummator::TSummator(const TSignalLine* signalLine1,
-                     const TSignalLine* signalLine2,
-                     double inaccuracy,
-                     std::string xLabel,
-                     std::string yLabel,
-                     std::string graphLabel)
+TMultiplier::TMultiplier(const TSignalLine* signalLine1,
+                         const TSignalLine* signalLine2,
+                         double inaccuracy,
+                         std::string xLabel,
+                         std::string yLabel,
+                         std::string graphLabel)
     : _params{signalLine1,       signalLine2,       inaccuracy,
               std::move(xLabel), std::move(yLabel), std::move(graphLabel)} {}
 
-TSummator::TSummator(TSummatorParams params) : _params(std::move(params)) {}
+TMultiplier::TMultiplier(TMultiplierParams params)
+    : _params(std::move(params)) {}
 
-const TSignalLine* TSummator::getSignalLine() const {
+const TSignalLine* TMultiplier::getSignalLine() const {
   if (!_isExecuted) {
-    throw SignalProcesserException("Summator not executed");
+    throw SignalProcesserException("Multiplier not executed");
   }
   return _sl.get();
 }
 
-const TSummatorParams& TSummator::getParams() const {
+const TMultiplierParams& TMultiplier::getParams() const {
   return _params;
 }
 
-bool TSummator::isExecuted() const {
+bool TMultiplier::isExecuted() const {
   return _isExecuted;
 }
 
-void TSummator::execute() {
+void TMultiplier::execute() {
   if (_params.signalLine1 == nullptr || _params.signalLine2 == nullptr) {
     throw SignalProcesserException("Invalid signal lines (nullptr)");
   }
@@ -51,7 +52,7 @@ void TSummator::execute() {
   for (int i = 0; i < _params.signalLine1->getParams().pointsCount; i++) {
     xCoord = _params.signalLine1->getPoint(i).x;
     yCoord =
-        _params.signalLine1->getPoint(i).y + _params.signalLine2->getPoint(i).y;
+        _params.signalLine1->getPoint(i).y * _params.signalLine2->getPoint(i).y;
     _sl->setPoint(i, xCoord, yCoord);
   }
   _isExecuted = true;

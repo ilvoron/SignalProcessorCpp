@@ -8,6 +8,7 @@
 #include "TSignalLine.h"
 
 #include <memory>
+#include <string>
 
 /**
  * @namespace SUM
@@ -36,7 +37,7 @@ struct TSummatorParams {
   std::string yLabel =
       SL::DEFAULT_Y_LABEL;  ///< (optional) Label for the y-axis.
   std::string graphLabel =
-      SL::DEFAULT_GRAPH_LABEL;  ///< (optional) Label for the graph.
+      SUM::DEFAULT_GRAPH_LABEL;  ///< (optional) Label for the graph.
 };
 
 /**
