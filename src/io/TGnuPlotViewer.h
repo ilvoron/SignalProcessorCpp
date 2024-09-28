@@ -2,6 +2,7 @@
  * TODO: add multiple graphs in one plot
  * TODO: ??? make constuctor more flexible and simple ??? get info from signal
  * line itself ???
+ * !TODO: add custom args for gnuplot
  */
 
 #pragma once
