@@ -11,15 +11,15 @@
 #include <string>
 
 /**
- * @namespace SUM
+ * @namespace SUMM
  * @brief Contains default parameters used in signal summation.
  */
-namespace SUM {
+namespace SUMM {
 
 static const std::string DEFAULT_GRAPH_LABEL =
     "Summation";  ///< Default graph label.
 
-}  // namespace SUM
+}  // namespace SUMM
 
 /**
  * @brief Parameters for summing two signal lines.
@@ -37,7 +37,7 @@ struct TSummatorParams {
   std::string yLabel =
       SL::DEFAULT_Y_LABEL;  ///< (optional) Label for the y-axis.
   std::string graphLabel =
-      SUM::DEFAULT_GRAPH_LABEL;  ///< (optional) Label for the graph.
+      SUMM::DEFAULT_GRAPH_LABEL;  ///< (optional) Label for the graph.
 };
 
 /**
@@ -65,7 +65,7 @@ class TSummator {
             double inaccuracy = SL::DEFAULT_INACCURACY,
             std::string xLabel = SL::DEFAULT_X_LABEL,
             std::string yLabel = SL::DEFAULT_Y_LABEL,
-            std::string graphLabel = SUM::DEFAULT_GRAPH_LABEL);
+            std::string graphLabel = SUMM::DEFAULT_GRAPH_LABEL);
 
   /**
    * @brief Constructs a TSummator object using TSummatorParams.

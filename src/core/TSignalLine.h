@@ -6,6 +6,7 @@
  *       ??? or all together ???
  * TODO: ??? Add generation inside the signal line ???
  * !TODO: ??? Make a class for Point ???
+ * TODO: Add push/pop point method
  */
 
 #pragma once
@@ -33,6 +34,8 @@ static constexpr double DEFAULT_AMPLITUDE =
     1.0;  ///< Default amplitude of the signal.
 static constexpr double DEFAULT_SAMPLING_FREQ =
     100.0;  ///< Default sampling frequency of the signal.
+static constexpr double DEFAULT_NORMALIZE_FACTOR =
+    1.0;  ///< Default normalization factor for the signal.
 static const std::string DEFAULT_X_LABEL =
     "X Axis";  ///< Default label for the x-axis.
 static const std::string DEFAULT_Y_LABEL =
@@ -61,6 +64,7 @@ struct TSignalLineParams {
   double offsetY;           ///< Vertical offset.
   double amplitude;         ///< Amplitude.
   double samplingFreq;      ///< Sampling frequency.
+  double normalizeFactor;   ///< Normalization factor.
   bool hasPointsCount;      ///< Indicates if the number of points is specified.
   bool hasTime;             ///< Indicates if the signal duration is specified.
   bool hasOscillationFreq;  ///< Indicates if the oscillation frequency is
@@ -69,6 +73,8 @@ struct TSignalLineParams {
   bool hasOffsetY;          ///< Indicates if the vertical offset is specified.
   bool hasAmplitude;        ///< Indicates if the amplitude is specified.
   bool hasSamplingFreq;  ///< Indicates if the sampling frequency is specified.
+  bool hasNormalizeFactor;  ///< Indicates if the normalization factor is
+                            ///< specified.
   std::string xLabel =
       SL::DEFAULT_X_LABEL;  ///< (optional) Label for the x-axis.
   std::string yLabel =
@@ -97,6 +103,7 @@ class TSignalLine {
    * @param offsetY The vertical offset of the signal.
    * @param amplitude The amplitude of the signal.
    * @param samplingFreq The sampling frequency of the signal.
+   * @param normalizeFactor (optional) Normalization factor for the signal.
    * @param xLabel (optional) Label for the x-axis.
    * @param yLabel (optional) Label for the y-axis.
    * @param graphLabel (optional) Label for the graph.
@@ -107,6 +114,7 @@ class TSignalLine {
               double offsetY,
               double amplitude,
               double samplingFreq,
+              double normalizeFactor,
               std::string xLabel = SL::DEFAULT_X_LABEL,
               std::string yLabel = SL::DEFAULT_Y_LABEL,
               std::string graphLabel = SL::DEFAULT_GRAPH_LABEL);

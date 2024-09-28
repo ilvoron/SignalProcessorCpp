@@ -2,6 +2,7 @@
 #include "TCore.h"
 #include "TSignalLine.h"
 
+#include <cstddef>
 #include <fstream>
 #include <string>
 #include <utility>
@@ -30,7 +31,8 @@ void TFileWriter::execute() const {
     throw SignalProcesserException("TSignalLine pointer is null");
   }
   Point point = {0.0, 0.0};
-  for (int i = 0; i < _params.signalLine->getParams().pointsCount; i++) {
+  for (std::size_t i = 0; i < _params.signalLine->getParams().pointsCount;
+       i++) {
     point = _params.signalLine->getPoint(i);
     file << point.x << '\t' << point.y << '\n';
   }
