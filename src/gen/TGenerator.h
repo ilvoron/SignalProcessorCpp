@@ -1,96 +1,150 @@
 #pragma once
+
 #include "TSignalLine.h"
+
 #include <memory>
+
+/**
+ * @namespace GEN
+ * @brief Contains default parameters used in signal generation.
+ */
+namespace GEN {
+
+static const std::string DEFAULT_X_LABEL = "Time";  ///< Default x-axis label.
+static const std::string DEFAULT_Y_LABEL =
+    "Amplitude";  ///< Default y-axis label.
+static const std::string DEFAULT_GRAPH_LABEL =
+    "Signal";  ///< Default graph label.
+
+}  // namespace GEN
 
 /**
  * @brief Parameters for generating a signal line.
  */
 struct TGeneratorParams {
-	double time = 1.0;                ///< Total time duration of the signal (default: 1.0 second).
-	double oscillationFreq = 1.0;     ///< Oscillation frequency of the signal (default: 1.0 Hz).
-	double initPhase = 0.0;           ///< Initial phase of the signal (default: 0.0 radians).
-	double offsetY = 0.0;             ///< Vertical offset of the signal (default: 0.0).
-	double amplitude = 1.0;           ///< Amplitude of the signal (default: 1.0).
-	double samplingFreq = 100.0;      ///< Sampling frequency of the signal (default: 100.0 Hz).
-	std::string xLabel = "X Axis";    ///< Label for the x-axis (default: "X Axis").
-	std::string yLabel = "Y Axis";    ///< Label for the y-axis (default: "Y Axis").
-	std::string graphLabel = "Graph"; ///< Label for the graph (default: "Graph").
+  double time = SL::DEFAULT_TIME;  ///< (optional)
+                                   ///< Total time duration.
+  double oscillationFreq =
+      SL::DEFAULT_OSCILLATION_FREQ;                  ///< (optional)
+                                                     ///< Oscillation frequency.
+  double initPhase = SL::DEFAULT_INIT_PHASE;         ///< (optional)
+                                                     ///< Initial phase.
+  double offsetY = SL::DEFAULT_OFFSET_Y;             ///< (optional)
+                                                     ///< Vertical offset.
+  double amplitude = SL::DEFAULT_AMPLITUDE;          ///< (optional)
+                                                     ///< Amplitude.
+  double samplingFreq = SL::DEFAULT_SAMPLING_FREQ;   ///< (optional)
+                                                     ///< Sampling frequency.
+  std::string xLabel = SL::DEFAULT_X_LABEL;          ///< (optional)
+                                                     ///< Label for the x-axis.
+  std::string yLabel = SL::DEFAULT_Y_LABEL;          ///< (optional)
+                                                     ///< Label for the y-axis.
+  std::string graphLabel = SL::DEFAULT_GRAPH_LABEL;  ///< (optional)
+                                                     ///< Label for the graph.
 };
 
 /**
  * @class TGenerator
  * @brief Class for generating a signal line with specified parameters.
- * 
+ *
  * This class allows for the generation of a signal line based on configurable
- * parameters and provides access to the generated signal and its parameters.
+ * parameters. It provides methods to retrieve the generated signal and its
+ * parameters.
  */
-class TGenerator{
-	public:
-		/**
-		 * @brief Constructs a TGenerator with specified signal parameters.
-		 * 
-		 * @param time The total time duration of the signal.
-		 * @param oscillationFreq The oscillation frequency of the signal.
-		 * @param initPhase The initial phase of the signal.
-		 * @param offsetY The vertical offset of the signal.
-		 * @param amplitude The amplitude of the signal.
-		 * @param samplingFreq The sampling frequency of the signal.
-		 * @param xLabel Label for the x-axis (optional, default: "Time").
-		 * @param yLabel Label for the y-axis (optional, default: "Signal Value").
-		 * @param graphLabel Label for the graph (optional, default: "Signal Line").
-		 */
-		TGenerator(double time = 1.0,
-		           double oscillationFreq = 1.0,
-		           double initPhase = 0.0,
-		           double offsetY = 0.0,
-		           double amplitude = 1.0,
-		           double samplingFreq = 100.0,
-		           std::string xLabel = "Time",
-		           std::string yLabel = "Signal Value",
-		           std::string graphLabel = "Signal Line");
+class TGenerator {
+ public:
+  /**
+   * @brief Constructs a TGenerator with specified signal parameters (aka "full
+   * generator").
+   *
+   * @param time (optional) The total time duration of the signal.
+   * @param oscillationFreq (optional) The oscillation frequency of the signal.
+   * @param initPhase (optional) The initial phase of the signal.
+   * @param offsetY (optional) The vertical offset of the signal.
+   * @param amplitude (optional) The amplitude of the signal.
+   * @param samplingFreq (optional) The sampling frequency of the signal.
+   * @param xLabel (optional) Label for the x-axis.
+   * @param yLabel (optional) Label for the y-axis.
+   * @param graphLabel (optional) Label for the graph.
+   */
+  TGenerator(double time = SL::DEFAULT_TIME,
+             double oscillationFreq = SL::DEFAULT_OSCILLATION_FREQ,
+             double initPhase = SL::DEFAULT_INIT_PHASE,
+             double offsetY = SL::DEFAULT_OFFSET_Y,
+             double amplitude = SL::DEFAULT_AMPLITUDE,
+             double samplingFreq = SL::DEFAULT_SAMPLING_FREQ,
+             std::string xLabel = GEN::DEFAULT_X_LABEL,
+             std::string yLabel = GEN::DEFAULT_Y_LABEL,
+             std::string graphLabel = GEN::DEFAULT_GRAPH_LABEL);
 
-		/**
-		 * @brief Constructs a TGenerator using a TGeneratorParams object.
-		 * 
-		 * @param params A structure containing the parameters for the signal generation.
-		 */
-		TGenerator(TGeneratorParams params);
+  /**
+   * @brief Constructs a TGenerator using a TGeneratorParams object.
+   *
+   * @param params A structure containing the parameters for the signal
+   * generation.
+   */
+  TGenerator(TGeneratorParams params);
 
-		/**
-		 * @brief Default destructor.
-		 */
-		~TGenerator() = default;
+  /**
+   * @brief Default destructor.
+   */
+  ~TGenerator() = default;
 
-		/**
-		 * @brief Retrieves a pointer to the generated signal line.
-		 * 
-		 * @return const TSignalLine* A pointer to the generated signal line.
-		 */
-		const TSignalLine* getSignalLine() const;
+  /**
+   * @brief Default copy constructor.
+   */
+  TGenerator(const TGenerator&) = default;
 
-		/**
-		 * @brief Retrieves the parameters used for signal generation.
-		 * 
-		 * @return const TGeneratorParams& A constant reference to the signal generation parameters.
-		 */
-		const TGeneratorParams& getParams() const;
+  /**
+   * @brief Default move constructor.
+   */
+  TGenerator(TGenerator&&) noexcept = default;
 
-		/**
-		 * @brief Checks if the signal has been generated.
-		 * 
-		 * @return bool True if the signal has been generated, false otherwise.
-		 */
-		bool isExecuted() const;
+  /**
+   * @brief Default copy assignment operator.
+   */
+  TGenerator& operator=(const TGenerator&) = default;
 
-		/**
-		 * @brief Executes the signal generation process.
-		 * 
-		 * This method generates the signal line based on the current parameters.
-		 * Once executed, the signal can be accessed through getSignalLine().
-		 */
-		void execute();
-	private:
-		std::unique_ptr<TSignalLine> _sl = nullptr; ///< A unique pointer to the generated signal line.
-		TGeneratorParams _params = {};              ///< Parameters for generating the signal line.
-		bool _isExecuted = false;                   ///< Flag indicating whether the signal has been generated.
+  /**
+   * @brief Default move assignment operator.
+   */
+  TGenerator& operator=(TGenerator&&) noexcept = default;
+
+  /**
+   * @brief Retrieves a pointer to the generated signal line.
+   *
+   * @return const TSignalLine* A pointer to the generated signal line.
+   */
+  [[nodiscard]] const TSignalLine* getSignalLine() const;
+
+  /**
+   * @brief Retrieves the parameters used for signal generation.
+   *
+   * @return const TGeneratorParams& A constant reference to the signal
+   * generation parameters.
+   */
+  [[nodiscard]] const TGeneratorParams& getParams() const;
+
+  /**
+   * @brief Checks if the signal has been generated.
+   *
+   * @return bool True if the signal has been generated, false otherwise.
+   */
+  [[nodiscard]] bool isExecuted() const;
+
+  /**
+   * @brief Executes the signal generation process.
+   *
+   * This method generates the signal line based on the current parameters.
+   * Once executed, the signal can be accessed through getSignalLine().
+   */
+  void execute();
+
+ private:
+  std::unique_ptr<TSignalLine> _sl =
+      nullptr;  ///< A unique pointer to the generated signal line.
+  TGeneratorParams _params =
+      {};  ///< Parameters for generating the signal line.
+  bool _isExecuted =
+      false;  ///< Flag indicating whether the signal has been generated.
 };

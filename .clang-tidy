@@ -1,0 +1,19 @@
+Checks: >
+    -*,
+    bugprone-*,
+    clang-analyzer-*,
+    performance-*,
+    modernize-*,
+    readability-*,
+    cppcoreguidelines-*,
+    misc-*,
+    -modernize-use-trailing-return-type
+
+CheckOptions:
+    - key: bugprone-reserved-identifier.AllowedIdentifiers
+      value: '_USE_MATH_DEFINES'
+
+WarningsAsErrors: 'bugprone-*,performance-*'
+HeaderFilterRegex: 'src/*.*'
+FormatStyle: file
+UseColor: true
