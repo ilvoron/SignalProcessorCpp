@@ -44,6 +44,7 @@ enum class DifferentiationMethod : std::uint8_t {
 };
 
 /**
+ * @struct TDifferentiatorParams
  * @brief Parameters for differentiating a signal line.
  */
 struct TDifferentiatorParams {

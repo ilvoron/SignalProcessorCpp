@@ -22,6 +22,7 @@ static const std::string DEFAULT_GRAPH_LABEL =
 }  // namespace SUMM
 
 /**
+ * @struct TSummatorParams
  * @brief Parameters for summing two signal lines.
  */
 struct TSummatorParams {

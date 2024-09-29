@@ -22,6 +22,7 @@ static const std::string DEFAULT_GRAPH_LABEL =
 }  // namespace MULT
 
 /**
+ * @struct TMultiplierParams
  * @brief Parameters for multiplying two signal lines.
  */
 struct TMultiplierParams {

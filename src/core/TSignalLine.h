@@ -7,6 +7,7 @@
  * TODO: ??? Add generation inside the signal line ???
  * !TODO: ??? Make a class for Point ???
  * TODO: Add push/pop point method
+ * !TODO: Make it get only x or y coordinates vector
  */
 
 #pragma once
@@ -46,6 +47,7 @@ static const std::string DEFAULT_GRAPH_LABEL =
 }  // namespace SL
 
 /**
+ * @struct Point
  * @brief Represents a 2D point with x and y coordinates.
  */
 struct Point {
@@ -54,6 +56,7 @@ struct Point {
 };
 
 /**
+ * @struct TSignalLineParams
  * @brief Contains parameters used for describing a signal line.
  */
 struct TSignalLineParams {

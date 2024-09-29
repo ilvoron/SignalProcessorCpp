@@ -16,6 +16,7 @@
 #include <string>
 
 /**
+ * @struct TGnuPlotViewerParams
  * @brief Parameters for configuring the GnuPlot viewer.
  */
 struct TGnuPlotViewerParams {

@@ -8,7 +8,8 @@
  * TODO: [GLOBAL] ??? Investigate adding asynchronous computation ???
  * TODO: [GLOBAL] ??? Investigate adding interfaces for signal processing ???
  * TODO: [GLOBAL] Validate @throws tags in the documentation
- * ? Consider using "std::optional" for optional parameters
+ * ? Consider using "std::optional" for optional parameters ?
+ * ? use ++i instead of i++ in for loops ?
  */
 
 #pragma once

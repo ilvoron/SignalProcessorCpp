@@ -37,6 +37,9 @@ bool TDifferentiator::isExecuted() const {
   return _isExecuted;
 }
 
+// TODO: Move differentiation logic to a separate method for each
+// differentiation method
+// TODO: Add switch-case for each differentiation method
 void TDifferentiator::execute() {
   if (_params.signalLine == nullptr) {
     throw SignalProcesserException("Invalid signal line (nullptr)");

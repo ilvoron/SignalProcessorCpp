@@ -19,6 +19,7 @@ static const std::string DEFAULT_GRAPH_LABEL =
 }  // namespace GEN
 
 /**
+ * @struct TGeneratorParams
  * @brief Parameters for generating a signal line.
  */
 struct TGeneratorParams {

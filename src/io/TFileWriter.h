@@ -10,6 +10,7 @@
 #include <string>
 
 /**
+ * @struct TFileWriterParams
  * @brief Parameters for writing a signal line to a file.
  */
 struct TFileWriterParams {

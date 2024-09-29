@@ -12,6 +12,14 @@ Checks: >
 CheckOptions:
     - key: bugprone-reserved-identifier.AllowedIdentifiers
       value: '_USE_MATH_DEFINES'
+    - key: readability-magic-numbers.IgnoredFloatingPointValues
+      value: '1.0;100.0;2.0;6.0;90.0'
+    - key: cppcoreguidelines-avoid-magic-numbers.IgnoredFloatingPointValues
+      value: '1.0;100.0;2.0;6.0;90.0'
+    - key: readability-magic-numbers.IgnoredIntegerValues
+      value: '1;2;3;4;7;12;32'
+    - key: cppcoreguidelines-avoid-magic-numbers.IgnoredIntegerValues
+      value: '1;2;3;4;7;12;32'
 
 WarningsAsErrors: 'bugprone-*,performance-*'
 HeaderFilterRegex: 'src/*.*'
