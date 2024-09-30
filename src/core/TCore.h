@@ -26,14 +26,5 @@
  */
 class SignalProcesserException : public std::runtime_error {
  public:
-  /**
-   * @brief Constructs a SignalProcesserException with a specific message.
-   *
-   * This constructor accepts a custom error message that provides information
-   * about the cause of the exception.
-   *
-   * @param message A string describing the error that occurred.
-   */
-  explicit SignalProcesserException(const std::string& message)
-      : std::runtime_error(message) {}
+  using std::runtime_error::runtime_error;
 };

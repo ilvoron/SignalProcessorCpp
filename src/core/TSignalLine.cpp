@@ -3,10 +3,11 @@
 
 #include <cmath>
 #include <cstddef>
+#include <string>
 #include <utility>
 
-/**
- ** PRIVATE METHODS
+/*
+ * PRIVATE METHODS
  */
 
 void TSignalLine::validatePointsInitialization() const {
@@ -15,8 +16,8 @@ void TSignalLine::validatePointsInitialization() const {
   }
 }
 
-/**
- ** PUBLIC METHODS
+/*
+ * PUBLIC METHODS
  */
 
 TSignalLine::TSignalLine(double time,
@@ -54,7 +55,7 @@ TSignalLine::TSignalLine(double time,
   if (samplingFreq <= 0) {
     throw SignalProcesserException("Sampling frequency should be positive");
   }
-  _points.resize(static_cast<size_t>(_params.pointsCount), Point{0.0, 0.0});
+  _points.resize(_params.pointsCount, Point{0.0, 0.0});
 }
 
 TSignalLine::TSignalLine(std::size_t pointsCount,
@@ -109,8 +110,8 @@ bool TSignalLine::equals(const TSignalLine* signalLine,
     throw SignalProcesserException("Inaccuracy should be positive");
   }
 
-  const TSignalLineParams paramsToCompare = signalLine->getParams();
-  if (_params.pointsCount != paramsToCompare.pointsCount) {
+  if (const TSignalLineParams paramsToCompare = signalLine->getParams();
+      _params.pointsCount != paramsToCompare.pointsCount) {
     return false;
   }
 

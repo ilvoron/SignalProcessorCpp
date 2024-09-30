@@ -1,3 +1,16 @@
+/**
+ * TODO: Add noise types:
+ * - `Gaussian`: Generates Gaussian (normal) noise with a specified mean and
+ * standard deviation.
+ * - `Pink`: Generates pink noise, which has equal energy per octave (or
+ * \(1/f\) noise).
+ * - `Brown`: Generates brown noise (also called red noise), which decreases
+ *  power as \(1/f^2\).
+ * - `Blue`: Generates blue noise, which increases power as \(f\).
+ * - `Violet`: Generates violet noise, where power increases as \(f^2\).
+ * - `Impulse`: Generates impulse noise with random spikes.
+ */
+
 #pragma once
 
 #include "TSignalLine.h"
@@ -19,16 +32,6 @@ static const std::string DEFAULT_GRAPH_LABEL =
 
 }  // namespace NGEN
 
-// TODO: Add noise types:
-// - `Gaussian`: Generates Gaussian (normal) noise with a specified mean and
-// standard deviation.
-// - `Pink`: Generates pink noise, which has equal energy per octave (or \(1/f\)
-// noise).
-// - `Brown`: Generates brown noise (also called red noise), which decreases
-// power as \(1/f^2\).
-// - `Blue`: Generates blue noise, which increases power as \(f\).
-// - `Violet`: Generates violet noise, where power increases as \(f^2\).
-// - `Impulse`: Generates impulse noise with random spikes.
 /**
  * @enum NoiseType
  * @brief Specifies the types of noise that can be applied to a signal.
@@ -53,6 +56,10 @@ struct TNoiseGeneratorParams {
       NGEN::DEFAULT_NOISE_AMPLITUDE;  ///< (optional) Amplitude of the noise.
   NoiseType noiseType =
       NoiseType::White;  ///< (optional) Type of noise to apply.
+  std::string xLabel = SL::DEFAULT_X_LABEL;  ///< (optional)
+                                             ///< Label for the x-axis.
+  std::string yLabel = SL::DEFAULT_Y_LABEL;  ///< (optional)
+                                             ///< Label for the y-axis.
   std::string graphLabel =
       NGEN::DEFAULT_GRAPH_LABEL;  ///< (optional) Label for the graph.
 };
@@ -75,17 +82,20 @@ class TNoiseGenerator {
    * @param noiseType (optional) The type of noise to apply.
    * @param graphLabel (optional) Label for the graph.
    */
-  TNoiseGenerator(const TSignalLine* signalLine,
-                  double noiseAmplitude = NGEN::DEFAULT_NOISE_AMPLITUDE,
-                  NoiseType noiseType = NoiseType::White,
-                  std::string graphLabel = NGEN::DEFAULT_GRAPH_LABEL);
+  explicit TNoiseGenerator(
+      const TSignalLine* signalLine,
+      double noiseAmplitude = NGEN::DEFAULT_NOISE_AMPLITUDE,
+      NoiseType noiseType = NoiseType::White,
+      std::string xLabel = SL::DEFAULT_X_LABEL,
+      std::string yLabel = SL::DEFAULT_Y_LABEL,
+      std::string graphLabel = NGEN::DEFAULT_GRAPH_LABEL);
 
   /**
    * @brief Constructs a TNoiseGenerator with noise generation parameters.
    *
    * @param params Structure containing the parameters for noise generation.
    */
-  TNoiseGenerator(TNoiseGeneratorParams params);
+  explicit TNoiseGenerator(TNoiseGeneratorParams params);
 
   /**
    * @brief Default destructor.

@@ -56,3 +56,4 @@ build
 .vscode
 *.bat
 main.cpp
+compile_commands.json

@@ -50,11 +50,11 @@ class TGnuPlotViewer {
    * @param yLabel (optional) The label for the Y axis.
    * @param graphLabel (optional) The label for the graph.
    */
-  TGnuPlotViewer(std::string filePath,
-                 std::string xLabel = SL::DEFAULT_X_LABEL,
-                 std::string yLabel = SL::DEFAULT_Y_LABEL,
-                 std::string graphLabel = SL::DEFAULT_GRAPH_LABEL,
-                 std::string gnuPlotPath = PM::DEFAULT_GNUPLOT_PATH);
+  explicit TGnuPlotViewer(std::string filePath,
+                          std::string xLabel = SL::DEFAULT_X_LABEL,
+                          std::string yLabel = SL::DEFAULT_Y_LABEL,
+                          std::string graphLabel = SL::DEFAULT_GRAPH_LABEL,
+                          std::string gnuPlotPath = PM::DEFAULT_GNUPLOT_PATH);
 
   /**
    * @brief Constructs a TGnuPlotViewer using a TGnuPlotViewerParams object.
@@ -62,7 +62,7 @@ class TGnuPlotViewer {
    * @param params A structure containing the parameters for GnuPlot
    * visualization.
    */
-  TGnuPlotViewer(TGnuPlotViewerParams params);
+  explicit TGnuPlotViewer(TGnuPlotViewerParams params);
 
   /**
    * @brief Default destructor.

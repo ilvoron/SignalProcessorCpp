@@ -61,19 +61,19 @@ class TSummator {
    * @param yLabel (optional) Label for the y-axis.
    * @param graphLabel (optional) Label for the graph.
    */
-  TSummator(const TSignalLine* signalLine1,
-            const TSignalLine* signalLine2,
-            double inaccuracy = SL::DEFAULT_INACCURACY,
-            std::string xLabel = SL::DEFAULT_X_LABEL,
-            std::string yLabel = SL::DEFAULT_Y_LABEL,
-            std::string graphLabel = SUMM::DEFAULT_GRAPH_LABEL);
+  explicit TSummator(const TSignalLine* signalLine1,
+                     const TSignalLine* signalLine2,
+                     double inaccuracy = SL::DEFAULT_INACCURACY,
+                     std::string xLabel = SL::DEFAULT_X_LABEL,
+                     std::string yLabel = SL::DEFAULT_Y_LABEL,
+                     std::string graphLabel = SUMM::DEFAULT_GRAPH_LABEL);
 
   /**
    * @brief Constructs a TSummator object using TSummatorParams.
    *
    * @param params A structure containing the parameters for signal summation.
    */
-  TSummator(TSummatorParams params);
+  explicit TSummator(TSummatorParams params);
 
   /**
    * @brief Default destructor.

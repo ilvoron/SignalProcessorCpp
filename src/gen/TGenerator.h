@@ -68,15 +68,15 @@ class TGenerator {
    * @param yLabel (optional) Label for the y-axis.
    * @param graphLabel (optional) Label for the graph.
    */
-  TGenerator(double time = SL::DEFAULT_TIME,
-             double oscillationFreq = SL::DEFAULT_OSCILLATION_FREQ,
-             double initPhase = SL::DEFAULT_INIT_PHASE,
-             double offsetY = SL::DEFAULT_OFFSET_Y,
-             double amplitude = SL::DEFAULT_AMPLITUDE,
-             double samplingFreq = SL::DEFAULT_SAMPLING_FREQ,
-             std::string xLabel = GEN::DEFAULT_X_LABEL,
-             std::string yLabel = GEN::DEFAULT_Y_LABEL,
-             std::string graphLabel = GEN::DEFAULT_GRAPH_LABEL);
+  explicit TGenerator(double time = SL::DEFAULT_TIME,
+                      double oscillationFreq = SL::DEFAULT_OSCILLATION_FREQ,
+                      double initPhase = SL::DEFAULT_INIT_PHASE,
+                      double offsetY = SL::DEFAULT_OFFSET_Y,
+                      double amplitude = SL::DEFAULT_AMPLITUDE,
+                      double samplingFreq = SL::DEFAULT_SAMPLING_FREQ,
+                      std::string xLabel = GEN::DEFAULT_X_LABEL,
+                      std::string yLabel = GEN::DEFAULT_Y_LABEL,
+                      std::string graphLabel = GEN::DEFAULT_GRAPH_LABEL);
 
   /**
    * @brief Constructs a TGenerator using a TGeneratorParams object.
@@ -84,7 +84,7 @@ class TGenerator {
    * @param params A structure containing the parameters for the signal
    * generation.
    */
-  TGenerator(TGeneratorParams params);
+  explicit TGenerator(TGeneratorParams params);
 
   /**
    * @brief Default destructor.

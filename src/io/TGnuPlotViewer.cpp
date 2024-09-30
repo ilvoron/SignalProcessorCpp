@@ -6,8 +6,8 @@
 #include <string>
 #include <utility>
 
-/**
- ** PUBLIC METHODS
+/*
+ * PUBLIC METHODS
  */
 
 TGnuPlotViewer::TGnuPlotViewer(std::string filePath,

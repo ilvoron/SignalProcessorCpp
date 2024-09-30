@@ -73,7 +73,7 @@ class TDifferentiator {
    * @param method (optional) Method for differentiation: central or central
    * with edge handling.
    */
-  TDifferentiator(
+  explicit TDifferentiator(
       const TSignalLine* signalLine,
       std::string xLabel = SL::DEFAULT_X_LABEL,
       std::string yLabel = SL::DEFAULT_Y_LABEL,
@@ -86,7 +86,7 @@ class TDifferentiator {
    * @param params A structure containing the parameters for signal
    * differentiation.
    */
-  TDifferentiator(TDifferentiatorParams params);
+  explicit TDifferentiator(TDifferentiatorParams params);
 
   /**
    * @brief Default destructor.

@@ -8,6 +8,8 @@
  * !TODO: ??? Make a class for Point ???
  * TODO: Add push/pop point method
  * !TODO: Make it get only x or y coordinates vector
+ * !TODO: void setPoint(std::size_t index, const Point& point);
+ * TODO: Add constuctor for just points count
  */
 
 #pragma once
@@ -51,8 +53,8 @@ static const std::string DEFAULT_GRAPH_LABEL =
  * @brief Represents a 2D point with x and y coordinates.
  */
 struct Point {
-  double x;  ///< The x-coordinate of the point.
-  double y;  ///< The y-coordinate of the point.
+  double x = 0.0;  ///< The x-coordinate of the point.
+  double y = 0.0;  ///< The y-coordinate of the point.
 };
 
 /**
@@ -60,24 +62,26 @@ struct Point {
  * @brief Contains parameters used for describing a signal line.
  */
 struct TSignalLineParams {
-  std::size_t pointsCount;  ///< Total number of points in the signal line.
-  double time;              ///< Duration in seconds.
-  double oscillationFreq;   ///< Oscillation frequency.
-  double initPhase;         ///< Initial phase.
-  double offsetY;           ///< Vertical offset.
-  double amplitude;         ///< Amplitude.
-  double samplingFreq;      ///< Sampling frequency.
-  double normalizeFactor;   ///< Normalization factor.
-  bool hasPointsCount;      ///< Indicates if the number of points is specified.
-  bool hasTime;             ///< Indicates if the signal duration is specified.
-  bool hasOscillationFreq;  ///< Indicates if the oscillation frequency is
-                            ///< specified.
-  bool hasInitPhase;        ///< Indicates if the initial phase is specified.
-  bool hasOffsetY;          ///< Indicates if the vertical offset is specified.
-  bool hasAmplitude;        ///< Indicates if the amplitude is specified.
-  bool hasSamplingFreq;  ///< Indicates if the sampling frequency is specified.
-  bool hasNormalizeFactor;  ///< Indicates if the normalization factor is
-                            ///< specified.
+  std::size_t pointsCount = 0;   ///< Total number of points in the signal line.
+  double time = 0.0;             ///< Duration in seconds.
+  double oscillationFreq = 0.0;  ///< Oscillation frequency.
+  double initPhase = 0.0;        ///< Initial phase.
+  double offsetY = 0.0;          ///< Vertical offset.
+  double amplitude = 0.0;        ///< Amplitude.
+  double samplingFreq = 0.0;     ///< Sampling frequency.
+  double normalizeFactor = 0.0;  ///< Normalization factor.
+  bool hasPointsCount =
+      false;             ///< Indicates if the number of points is specified.
+  bool hasTime = false;  ///< Indicates if the signal duration is specified.
+  bool hasOscillationFreq = false;  ///< Indicates if the oscillation frequency
+                                    ///< is specified.
+  bool hasInitPhase = false;  ///< Indicates if the initial phase is specified.
+  bool hasOffsetY = false;  ///< Indicates if the vertical offset is specified.
+  bool hasAmplitude = false;  ///< Indicates if the amplitude is specified.
+  bool hasSamplingFreq =
+      false;  ///< Indicates if the sampling frequency is specified.
+  bool hasNormalizeFactor = false;  ///< Indicates if the normalization factor
+                                    ///< is specified.
   std::string xLabel =
       SL::DEFAULT_X_LABEL;  ///< (optional) Label for the x-axis.
   std::string yLabel =
@@ -111,16 +115,16 @@ class TSignalLine {
    * @param yLabel (optional) Label for the y-axis.
    * @param graphLabel (optional) Label for the graph.
    */
-  TSignalLine(double time,
-              double oscillationFreq,
-              double initPhase,
-              double offsetY,
-              double amplitude,
-              double samplingFreq,
-              double normalizeFactor,
-              std::string xLabel = SL::DEFAULT_X_LABEL,
-              std::string yLabel = SL::DEFAULT_Y_LABEL,
-              std::string graphLabel = SL::DEFAULT_GRAPH_LABEL);
+  explicit TSignalLine(double time,
+                       double oscillationFreq,
+                       double initPhase,
+                       double offsetY,
+                       double amplitude,
+                       double samplingFreq,
+                       double normalizeFactor,
+                       std::string xLabel = SL::DEFAULT_X_LABEL,
+                       std::string yLabel = SL::DEFAULT_Y_LABEL,
+                       std::string graphLabel = SL::DEFAULT_GRAPH_LABEL);
 
   /**
    * @brief Constructs a signal line based on the number of points.
@@ -130,10 +134,10 @@ class TSignalLine {
    * @param yLabel (optional) Label for the y-axis.
    * @param graphLabel (optional) Label for the graph.
    */
-  TSignalLine(std::size_t pointsCount,
-              std::string xLabel = SL::DEFAULT_X_LABEL,
-              std::string yLabel = SL::DEFAULT_Y_LABEL,
-              std::string graphLabel = SL::DEFAULT_GRAPH_LABEL);
+  explicit TSignalLine(std::size_t pointsCount,
+                       std::string xLabel = SL::DEFAULT_X_LABEL,
+                       std::string yLabel = SL::DEFAULT_Y_LABEL,
+                       std::string graphLabel = SL::DEFAULT_GRAPH_LABEL);
 
   /**
    * @brief Default destructor.
@@ -168,8 +172,6 @@ class TSignalLine {
    * @param yCoord The new y-coordinate of the point.
    */
   void setPoint(std::size_t index, double xCoord, double yCoord);
-
-  // TODO: void setPoint(std::size_t index, const Point& point);
 
   /**
    * @brief Retrieves a point from the signal line by its index.

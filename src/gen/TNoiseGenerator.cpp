@@ -8,21 +8,21 @@
 #include <string>
 #include <utility>
 
-/**
- ** PUBLIC METHODS
+/*
+ * PUBLIC METHODS
  */
 
 TNoiseGenerator::TNoiseGenerator(const TSignalLine* signalLine,
                                  double noiseAmplitude,
                                  NoiseType noiseType,
+                                 std::string xLabel,
+                                 std::string yLabel,
                                  std::string graphLabel)
-    : _sl(std::make_unique<TSignalLine>(signalLine->getParams().pointsCount)),
-      _params{signalLine, noiseAmplitude, noiseType, std::move(graphLabel)} {}
+    : _params{signalLine,        noiseAmplitude,    noiseType,
+              std::move(xLabel), std::move(yLabel), std::move(graphLabel)} {}
 
 TNoiseGenerator::TNoiseGenerator(TNoiseGeneratorParams params)
-    : _sl(std::make_unique<TSignalLine>(
-          params.signalLine->getParams().pointsCount)),
-      _params{std::move(params)} {}
+    : _params{std::move(params)} {}
 
 const TSignalLine* TNoiseGenerator::getSignalLine() const {
   return _sl.get();
@@ -33,9 +33,9 @@ const TNoiseGeneratorParams& TNoiseGenerator::getParams() const {
 }
 
 void TNoiseGenerator::execute() {
-  if (_sl == nullptr) {
-    throw SignalProcesserException("Signal line is not initialized.");
-  }
+  _sl = std::make_unique<TSignalLine>(
+      _params.signalLine->getParams().pointsCount, _params.xLabel,
+      _params.yLabel, _params.graphLabel);
 
   const size_t pointsCount = _sl->getParams().pointsCount;
   const double noiseAmplitude = _params.noiseAmplitude;
@@ -44,7 +44,7 @@ void TNoiseGenerator::execute() {
     case NoiseType::White: {
       std::random_device randomDevice;
       std::mt19937 gen(randomDevice());
-      std::uniform_real_distribution<> dist(-noiseAmplitude, noiseAmplitude);
+      std::uniform_real_distribution dist(-noiseAmplitude, noiseAmplitude);
       for (size_t i = 0; i < pointsCount; ++i) {
         const Point& originalPoint = _params.signalLine->getPoint(i);
         const double noise = dist(gen);

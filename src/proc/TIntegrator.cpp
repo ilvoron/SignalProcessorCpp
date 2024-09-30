@@ -1,10 +1,14 @@
+/**
+ * TODO: Move integration logic to a separate method for each integration method
+ */
+
 #include "TIntegrator.h"
 #include <cstddef>
 #include "TCore.h"
 #include "TSignalLine.h"
 
-/**
- ** PUBLIC METHODS
+/*
+ * PUBLIC METHODS
  */
 
 TIntegrator::TIntegrator(const TSignalLine* signalLine,
@@ -28,7 +32,6 @@ bool TIntegrator::isExecuted() const {
   return _isExecuted;
 }
 
-// TODO: Move integration logic to a separate method for each integration method
 void TIntegrator::execute() {
   if (_params.signalLine == nullptr) {
     throw SignalProcesserException("Invalid signal line (nullptr)");

@@ -7,8 +7,8 @@
 #include <string>
 #include <utility>
 
-/**
- ** PUBLIC METHODS
+/*
+ * PUBLIC METHODS
  */
 
 TFileWriter::TFileWriter(const TSignalLine* signalLine, std::string filePath)

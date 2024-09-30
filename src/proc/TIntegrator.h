@@ -67,15 +67,16 @@ class TIntegrator {
    * @param signalLine Pointer to the signal line to integrate.
    * @param method (optional) The method to use for integration.
    */
-  TIntegrator(const TSignalLine* signalLine,
-              IntegrationMethod method = IntegrationMethod::Trapezoidal);
+  explicit TIntegrator(
+      const TSignalLine* signalLine,
+      IntegrationMethod method = IntegrationMethod::Trapezoidal);
 
   /**
    * @brief Constructs a TIntegrator with integration parameters.
    *
    * @param params Structure containing the parameters for signal integration.
    */
-  TIntegrator(TIntegratorParams params);
+  explicit TIntegrator(TIntegratorParams params);
 
   /**
    * @brief Default destructor.

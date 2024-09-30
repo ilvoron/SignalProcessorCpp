@@ -6,8 +6,8 @@
 #include <string>
 #include <utility>
 
-/**
- ** PUBLIC METHODS
+/*
+ * PUBLIC METHODS
  */
 
 TMultiplier::TMultiplier(const TSignalLine* signalLine1,

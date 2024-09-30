@@ -39,8 +39,8 @@ class TFileWriter {
    * @param filePath (optional) Path to the file where the signal line will be
    * saved.
    */
-  TFileWriter(const TSignalLine* signalLine,
-              std::string filePath = PM::DEFAULT_SIGNAL_LINE_FILEPATH);
+  explicit TFileWriter(const TSignalLine* signalLine,
+                       std::string filePath = PM::DEFAULT_SIGNAL_LINE_FILEPATH);
 
   /**
    * @brief Constructs a TFileWriter using a TFileWriterParams object.
@@ -48,7 +48,7 @@ class TFileWriter {
    * @param params A structure containing the parameters, including the signal
    * line and file path.
    */
-  TFileWriter(TFileWriterParams params);
+  explicit TFileWriter(TFileWriterParams params);
 
   /**
    * @brief Default destructor.
