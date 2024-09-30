@@ -10,6 +10,8 @@
  * TODO: [GLOBAL] Validate @throws tags in the documentation
  * ? Consider using "std::optional" for optional parameters ?
  * ? use ++i instead of i++ in for loops ?
+ * TODO: Add module to redefine signal line parameters based on points count and
+ * time/sampling frequency
  */
 
 #pragma once

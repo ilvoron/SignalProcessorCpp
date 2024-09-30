@@ -10,6 +10,7 @@
  * !TODO: Make it get only x or y coordinates vector
  * !TODO: void setPoint(std::size_t index, const Point& point);
  * TODO: Add constuctor for just points count
+ * TODO: Add set params method
  */
 
 #pragma once
@@ -70,6 +71,8 @@ struct TSignalLineParams {
   double amplitude = 0.0;        ///< Amplitude.
   double samplingFreq = 0.0;     ///< Sampling frequency.
   double normalizeFactor = 0.0;  ///< Normalization factor.
+  mutable double maxValue = 0.0;  ///< Maximum value of the signal.
+  mutable double minValue = 0.0;  ///< Minimum value of the signal.
   bool hasPointsCount =
       false;             ///< Indicates if the number of points is specified.
   bool hasTime = false;  ///< Indicates if the signal duration is specified.
@@ -80,8 +83,11 @@ struct TSignalLineParams {
   bool hasAmplitude = false;  ///< Indicates if the amplitude is specified.
   bool hasSamplingFreq =
       false;  ///< Indicates if the sampling frequency is specified.
-  bool hasNormalizeFactor = false;  ///< Indicates if the normalization factor
-                                    ///< is specified.
+  bool hasNormalizeFactor = false;   ///< Indicates if the normalization factor
+                                     ///< is specified.
+  mutable bool hasMaxValue = false;  ///< Indicates if the maximum value is
+                                     ///< specified.
+  mutable bool hasMinValue = false;  ///< Indicates if the minimum value is
   std::string xLabel =
       SL::DEFAULT_X_LABEL;  ///< (optional) Label for the x-axis.
   std::string yLabel =
@@ -138,6 +144,26 @@ class TSignalLine {
                        std::string xLabel = SL::DEFAULT_X_LABEL,
                        std::string yLabel = SL::DEFAULT_Y_LABEL,
                        std::string graphLabel = SL::DEFAULT_GRAPH_LABEL);
+
+  /**
+   * @brief Constructs a signal line based on the given parameters.
+   *
+   * This constructor attempts to form a signal using either the time or
+   * sampling frequency (ignoring other parameters if necessary). If the signal
+   * can be formed this way, all points are initialized with zero values.
+   *
+   * If neither time nor sampling frequency can be used to form the signal,
+   * the signal will be created based solely on the number of points, if
+   * available.
+   *
+   * @param params A structure containing parameters for configuring the signal
+   * line.
+   */
+  explicit TSignalLine(TSignalLineParams params);
+
+  explicit TSignalLine(const TSignalLine* signalLine,
+                       double offsetX = 0.0,
+                       double offsetY = 0.0);
 
   /**
    * @brief Default destructor.
@@ -200,6 +226,44 @@ class TSignalLine {
    */
   [[nodiscard]] bool equals(const TSignalLine* signalLine,
                             double inaccuracy = SL::DEFAULT_INACCURACY) const;
+
+  /**
+   * @brief Determines whether the signal can be formed based on time and/or
+   * sampling frequency rather than the number of points.
+   *
+   * This method checks if the signal line can be generated using parameters
+   * such as time or sampling frequency instead of relying on the number of
+   * points.
+   *
+   * @return true If the signal can be formed based on time or sampling
+   * frequency.
+   * @return false Otherwise.
+   */
+  [[nodiscard]] bool canFormFromTimeOrFrequency() const;
+
+  /**
+   * @brief Finds the maximum value in the signal line.
+   *
+   * This method iterates through all points in the signal line to find the
+   * maximum value. If the maximum value has already been found and is stored
+   * in the parameters, the stored value is returned instead.
+   *
+   * @param forceUpdate (optional) Forces the method to recalculate the maximum
+   * value.
+   */
+  [[nodiscard]] double findMax(bool forceUpdate = false) const;
+
+  /**
+   * @brief Finds the minimum value in the signal line.
+   *
+   * This method iterates through all points in the signal line to find the
+   * minimum value. If the minimum value has already been found and is stored
+   * in the parameters, the stored value is returned instead.
+   *
+   * @param forceUpdate (optional) Forces the method to recalculate the minimum
+   * value.
+   */
+  [[nodiscard]] double findMin(bool forceUpdate = false) const;
 
   /**
    * @brief Checks whether two points are approximately equal in the

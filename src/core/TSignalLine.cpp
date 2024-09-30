@@ -30,7 +30,7 @@ TSignalLine::TSignalLine(double time,
                          std::string xLabel,
                          std::string yLabel,
                          std::string graphLabel)
-    : _params{static_cast<std::size_t>(ceil(time * samplingFreq)),
+    : _params{static_cast<std::size_t>(ceil(time * samplingFreq + 1)),
               time,
               oscillationFreq,
               initPhase,
@@ -38,6 +38,8 @@ TSignalLine::TSignalLine(double time,
               amplitude,
               samplingFreq,
               normalizeFactor,
+              0.0,
+              0.0,
               true,
               true,
               true,
@@ -46,6 +48,8 @@ TSignalLine::TSignalLine(double time,
               true,
               true,
               true,
+              false,
+              false,
               std::move(xLabel),
               std::move(yLabel),
               std::move(graphLabel)} {
@@ -70,7 +74,11 @@ TSignalLine::TSignalLine(std::size_t pointsCount,
              0.0,
              0.0,
              0.0,
+             0.0,
+             0.0,
              true,
+             false,
+             false,
              false,
              false,
              false,
@@ -82,6 +90,34 @@ TSignalLine::TSignalLine(std::size_t pointsCount,
              std::move(yLabel),
              std::move(graphLabel)};
   _points.resize(pointsCount, Point{0.0, 0.0});
+}
+
+TSignalLine::TSignalLine(TSignalLineParams params)
+    : _params(std::move(params)) {
+  if (!canFormFromTimeOrFrequency() && !_params.hasPointsCount) {
+    throw SignalProcesserException("Invalid parameters");
+  }
+  if (canFormFromTimeOrFrequency()) {
+    _params.pointsCount =
+        static_cast<std::size_t>(ceil(_params.time * _params.samplingFreq + 1));
+    _params.hasPointsCount = true;
+  }
+  _points.resize(_params.pointsCount, Point{0.0, 0.0});
+}
+
+TSignalLine::TSignalLine(const TSignalLine* signalLine,
+                         double offsetX,
+                         double offsetY) {
+  if (signalLine == nullptr) {
+    throw SignalProcesserException("Signal line pointer is null");
+  }
+
+  _params = signalLine->getParams();
+  _points.resize(_params.pointsCount, Point{0.0, 0.0});
+  for (std::size_t i = 0; i < _params.pointsCount; i++) {
+    _points.at(i).x = signalLine->getPoint(i).x + offsetX;
+    _points.at(i).y = signalLine->getPoint(i).y + offsetY;
+  }
 }
 
 void TSignalLine::setPoint(std::size_t index, double xCoord, double yCoord) {
@@ -110,8 +146,8 @@ bool TSignalLine::equals(const TSignalLine* signalLine,
     throw SignalProcesserException("Inaccuracy should be positive");
   }
 
-  if (const TSignalLineParams paramsToCompare = signalLine->getParams();
-      _params.pointsCount != paramsToCompare.pointsCount) {
+  const TSignalLineParams paramsToCompare = signalLine->getParams();
+  if (_params.pointsCount != paramsToCompare.pointsCount) {
     return false;
   }
 
@@ -122,6 +158,44 @@ bool TSignalLine::equals(const TSignalLine* signalLine,
   }
 
   return false;
+}
+
+bool TSignalLine::canFormFromTimeOrFrequency() const {
+  return _params.hasTime || _params.hasOscillationFreq;
+}
+
+double TSignalLine::findMax(bool forceUpdate) const {
+  if (_params.hasMaxValue && !forceUpdate) {
+    return _params.maxValue;
+  }
+
+  double max = _points.at(0).y;
+  for (const Point& point : _points) {
+    if (point.y > max) {
+      max = point.y;
+    }
+  }
+
+  _params.maxValue = max;
+  _params.hasMaxValue = true;
+  return max;
+}
+
+double TSignalLine::findMin(bool forceUpdate) const {
+  if (_params.hasMinValue && !forceUpdate) {
+    return _params.minValue;
+  }
+
+  double min = _points.at(0).y;
+  for (const Point& point : _points) {
+    if (point.y < min) {
+      min = point.y;
+    }
+  }
+
+  _params.minValue = min;
+  _params.hasMinValue = true;
+  return min;
 }
 
 bool TSignalLine::areCloseX(const Point& point1,

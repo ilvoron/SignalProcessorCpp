@@ -18,12 +18,13 @@
  */
 
 TDifferentiator::TDifferentiator(const TSignalLine* signalLine,
+                                 bool performNormalization,
                                  std::string xLabel,
                                  std::string yLabel,
                                  std::string graphLabel,
                                  DifferentiationMethod method)
-    : _params{signalLine, std::move(xLabel), std::move(yLabel),
-              std::move(graphLabel), method} {}
+    : _params{signalLine,        performNormalization,  std::move(xLabel),
+              std::move(yLabel), std::move(graphLabel), method} {}
 
 TDifferentiator::TDifferentiator(TDifferentiatorParams params)
     : _params(std::move(params)) {}
@@ -52,17 +53,24 @@ void TDifferentiator::execute() {
   }
 
   const bool centralOnly = _params.method == DifferentiationMethod::CentralOnly;
-  const double normalizeFactor =
-      _params.signalLine->getParams().normalizeFactor;
   const std::size_t pointsCountIn = _params.signalLine->getParams().pointsCount;
   const std::size_t pointsCountOut = pointsCountIn - (centralOnly ? 2 : 0);
-  _sl = std::make_unique<TSignalLine>(pointsCountOut, _params.xLabel,
-                                      _params.yLabel, _params.graphLabel);
+  TSignalLineParams slParams = _params.signalLine->getParams();
+  slParams.pointsCount = pointsCountOut;
+  slParams.hasPointsCount = true;
+  slParams.xLabel = _params.xLabel;
+  slParams.yLabel = _params.yLabel;
+  slParams.graphLabel = _params.graphLabel;
+  _sl = std::make_unique<TSignalLine>(slParams);
 
   double deltaX = 0.0;
   double deltaY = 0.0;
   Point point1 = {0.0, 0.0};
   Point point2 = {0.0, 0.0};
+  const double normalizeFactor =
+      _params.performNormalization
+          ? _params.signalLine->getParams().normalizeFactor
+          : 1.0;
   for (std::size_t i = 1; i < pointsCountIn - 1; i++) {
     point1 = _params.signalLine->getPoint(i - 1);
     point2 = _params.signalLine->getPoint(i + 1);

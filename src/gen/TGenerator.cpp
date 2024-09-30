@@ -5,6 +5,7 @@
 #include "TSignalLine.h"
 
 #include <cmath>
+#include <cstddef>
 #include <memory>
 #include <string>
 #include <utility>
@@ -66,9 +67,10 @@ void TGenerator::execute() {
       TWO_PI * params.oscillationFreq / params.samplingFreq;
   double xCoord = 0.0;
   double yCoord = 0.0;
-  for (int i = 0; i < params.pointsCount; i++) {
-    xCoord = i / params.samplingFreq;
-    yCoord = params.amplitude * sin(twoPiFreq * i + params.initPhase) +
+  for (std::size_t i = 0; i < params.pointsCount; i++) {
+    xCoord = static_cast<double>(i) / params.samplingFreq;
+    yCoord = params.amplitude *
+                 sin(twoPiFreq * static_cast<double>(i) + params.initPhase) +
              params.offsetY;
     _sl->setPoint(i, xCoord, yCoord);
   }

@@ -33,9 +33,11 @@ const TNoiseGeneratorParams& TNoiseGenerator::getParams() const {
 }
 
 void TNoiseGenerator::execute() {
-  _sl = std::make_unique<TSignalLine>(
-      _params.signalLine->getParams().pointsCount, _params.xLabel,
-      _params.yLabel, _params.graphLabel);
+  TSignalLineParams slParams = _params.signalLine->getParams();
+  slParams.xLabel = _params.xLabel;
+  slParams.yLabel = _params.yLabel;
+  slParams.graphLabel = _params.graphLabel;
+  _sl = std::make_unique<TSignalLine>(slParams);
 
   const size_t pointsCount = _sl->getParams().pointsCount;
   const double noiseAmplitude = _params.noiseAmplitude;

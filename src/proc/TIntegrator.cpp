@@ -3,9 +3,10 @@
  */
 
 #include "TIntegrator.h"
-#include <cstddef>
 #include "TCore.h"
 #include "TSignalLine.h"
+
+#include <cstddef>
 
 /*
  * PUBLIC METHODS

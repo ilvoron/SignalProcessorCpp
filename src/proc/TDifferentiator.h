@@ -12,6 +12,8 @@
  */
 namespace DIFF {
 
+static constexpr bool DEFAULT_PERFORM_NORMALIZATION =
+    true;  ///< Default normalization flag.
 static const std::string DEFAULT_GRAPH_LABEL =
     "Differentiation";  ///< Default graph label.
 
@@ -50,6 +52,8 @@ enum class DifferentiationMethod : std::uint8_t {
 struct TDifferentiatorParams {
   const TSignalLine* signalLine =
       nullptr;  ///< Pointer to the signal line to differentiate.
+  bool performNormalization =
+      DIFF::DEFAULT_PERFORM_NORMALIZATION;  ///< Flag to perform normalization.
   std::string xLabel =
       SL::DEFAULT_X_LABEL;  ///< (optional) Label for the x-axis.
   std::string yLabel =
@@ -75,6 +79,7 @@ class TDifferentiator {
    */
   explicit TDifferentiator(
       const TSignalLine* signalLine,
+      bool performNormalization = DIFF::DEFAULT_PERFORM_NORMALIZATION,
       std::string xLabel = SL::DEFAULT_X_LABEL,
       std::string yLabel = SL::DEFAULT_Y_LABEL,
       std::string graphLabel = DIFF::DEFAULT_GRAPH_LABEL,

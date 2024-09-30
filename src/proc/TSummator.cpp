@@ -2,6 +2,7 @@
 #include "TCore.h"
 #include "TSignalLine.h"
 
+#include <cstddef>
 #include <memory>
 #include <string>
 #include <utility>
@@ -43,12 +44,17 @@ void TSummator::execute() {
   if (!_params.signalLine1->equals(_params.signalLine2, _params.inaccuracy)) {
     throw SignalProcesserException("Signal lines aren't equal");
   }
-  _sl = std::make_unique<TSignalLine>(
-      _params.signalLine1->getParams().pointsCount, _params.xLabel,
-      _params.yLabel, _params.graphLabel);
+
+  TSignalLineParams slParams = _params.signalLine1->getParams();
+  slParams.xLabel = _params.xLabel;
+  slParams.yLabel = _params.yLabel;
+  slParams.graphLabel = _params.graphLabel;
+  _sl = std::make_unique<TSignalLine>(slParams);
+
   double xCoord = 0.0;
   double yCoord = 0.0;
-  for (int i = 0; i < _params.signalLine1->getParams().pointsCount; i++) {
+  for (std::size_t i = 0; i < _params.signalLine1->getParams().pointsCount;
+       i++) {
     xCoord = _params.signalLine1->getPoint(i).x;
     yCoord =
         _params.signalLine1->getPoint(i).y + _params.signalLine2->getPoint(i).y;
