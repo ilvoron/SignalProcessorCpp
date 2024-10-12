@@ -1,0 +1,1 @@
+Amplitude of sine wave: 3
