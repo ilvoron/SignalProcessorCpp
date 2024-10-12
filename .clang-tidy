@@ -1,27 +1,34 @@
 Checks: >
-    -*,
-    bugprone-*,
-    clang-analyzer-*,
-    performance-*,
-    modernize-*,
-    readability-*,
-    cppcoreguidelines-*,
-    misc-*,
-    -modernize-use-trailing-return-type
+  -*,
+  bugprone-*,
+  clang-analyzer-*,
+  performance-*,
+  modernize-*,
+  readability-*,
+  cppcoreguidelines-*,
+  misc-*,
+  -modernize-use-trailing-return-type,
+  -bugprone-easily-swappable-parameters,
+  -readability-math-missing-parentheses
 
 CheckOptions:
-    - key: bugprone-reserved-identifier.AllowedIdentifiers
-      value: '_USE_MATH_DEFINES'
-    - key: readability-magic-numbers.IgnoredFloatingPointValues
-      value: '1.0;100.0;2.0;6.0;90.0'
-    - key: cppcoreguidelines-avoid-magic-numbers.IgnoredFloatingPointValues
-      value: '1.0;100.0;2.0;6.0;90.0'
-    - key: readability-magic-numbers.IgnoredIntegerValues
-      value: '1;2;3;4;7;12;32'
-    - key: cppcoreguidelines-avoid-magic-numbers.IgnoredIntegerValues
-      value: '1;2;3;4;7;12;32'
+  - key: bugprone-reserved-identifier.AllowedIdentifiers
+    value: "_USE_MATH_DEFINES"
+  - key: readability-magic-numbers.IgnoredFloatingPointValues
+    value: "1.0;100.0;2.0;6.0;90.0"
+  - key: cppcoreguidelines-avoid-magic-numbers.IgnoredFloatingPointValues
+    value: "1.0;100.0;2.0;6.0;90.0"
+  - key: readability-magic-numbers.IgnoredIntegerValues
+    value: "1;2;3;4;7;12;32"
+  - key: cppcoreguidelines-avoid-magic-numbers.IgnoredIntegerValues
+    value: "1;2;3;4;7;12;32"
+  - key: std-c++-standard
+    value: "c++20"
 
-WarningsAsErrors: 'bugprone-*,performance-*'
-HeaderFilterRegex: 'src/*.*'
+WarningsAsErrors: "bugprone-*,performance-*"
+HeaderFileExtensions: [ "", "h", "hh", "hpp", "hxx" ]
+ImplementationFileExtensions: [ "c", "cc", "cpp", "cxx" ]
+HeaderFilterRegex: "src/*.*"
 FormatStyle: file
 UseColor: true
+User: il.voron

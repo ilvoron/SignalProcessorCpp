@@ -1,11 +1,19 @@
-#include "TAmplitudeDetector.h"
-#include "TCore.h"
-#include "TIntegrator.h"
-#include "TMultiplier.h"
-#include "TSignalLine.h"
+/**
+ * @file TAmplitudeDetector.cpp
+ * @author Vorontsov Ilya Aleksandrovich (ilvoron)
+ * @brief Contains the implementation of the TAmplitudeDetector class for
+ * detecting the amplitude of a signal.
+ * @version 2.1.0.1
+ * @date October 12, 2024
+ * @copyright Copyright (c) 2024
+ */
 
-#include <cmath>
-#include <memory>
+#include "TAmplitudeDetector.hpp"
+#include "TCore.hpp"
+#include "TRMS.hpp"
+#include "TSignalLine.hpp"
+
+#include <numbers>
 
 /*
  * PUBLIC METHODS
@@ -14,51 +22,47 @@
 TAmplitudeDetector::TAmplitudeDetector(const TSignalLine* signalLine)
     : _params{signalLine} {}
 
-TAmplitudeDetector::TAmplitudeDetector(TAmplitudeDetectorParams params)
+TAmplitudeDetector::TAmplitudeDetector(const TAmplitudeDetectorParams& params)
     : _params(params) {}
 
 double TAmplitudeDetector::getAmplitude() const {
-  if (!_isExecuted) {
-    throw SignalProcesserException("Amplitude detector not executed");
-  }
-  return _amplitude;
+    if (!_isExecuted) {
+        throw SignalProcessingError("Amplitude detector not executed");
+    }
+    return _amplitude;
 }
 
 const TAmplitudeDetectorParams& TAmplitudeDetector::getParams() const {
-  return _params;
+    return _params;
 }
 
 bool TAmplitudeDetector::isExecuted() const {
-  return _isExecuted;
+    return _isExecuted;
 }
 
-void TAmplitudeDetector::execute(double normalizationInaccuracy) {
-  if (_params.signalLine == nullptr) {
-    throw SignalProcesserException("Invalid signal line (nullptr)");
-  }
-  if (!_params.signalLine->getParams().hasTime) {
-    throw SignalProcesserException(
-        "Signal line does not have time information");
-  }
+void TAmplitudeDetector::execute() {
+    // We're ensuring that the signal line is not null here because the signal
+    // line may be set after the TFileWriter object creation.
+    if (_params.signalLine == nullptr) {
+        throw SignalProcessingError("Signal line is not specified.");
+    }
+    if (!_params.signalLine->getParams().duration) {
+        throw SignalProcessingError(
+            "Signal line does not have duration information");
+    }
 
-  const double maxValue = _params.signalLine->findMax();
-  const double minValue = _params.signalLine->findMin();
-  const double lowerBound = std::abs(maxValue) - normalizationInaccuracy;
-  const double upperBound = std::abs(maxValue) + normalizationInaccuracy;
-  if (std::abs(minValue) < lowerBound || std::abs(minValue) > upperBound) {
-    _normalizedSignalLine = std::make_unique<TSignalLine>(
-        _params.signalLine, 0.0, -(maxValue + minValue) / 2);
-    _params.signalLine = _normalizedSignalLine.get();
-  }
+    // --> Using RMS to calculate the amplitude <--
 
-  TMultiplier powerSignalLine(_params.signalLine, _params.signalLine);
-  powerSignalLine.execute();
-  TIntegrator energy(powerSignalLine.getSignalLine());
-  energy.execute();
-  const double power =
-      energy.getIntegral() / _params.signalLine->getParams().time;
-  const double voltage = sqrt(power);
-  _amplitude = sqrt(2) * voltage;
+    // Remove DC component from the signal
+    auto DCRemovedSignal = TSignalLine(_params.signalLine);
+    DCRemovedSignal.removeDCComponent();
 
-  _isExecuted = true;
+    // Calculate RMS value.
+    TRMS rms(&DCRemovedSignal);
+    rms.execute();
+
+    // Calculate amplitude based on RMS
+    _amplitude = std::numbers::sqrt2 * rms.getRMSValue();
+
+    _isExecuted = true;
 }

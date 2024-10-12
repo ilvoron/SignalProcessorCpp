@@ -52,8 +52,14 @@ Mkfile.old
 dkms.conf
 
 # [Custom]
-build
 .vscode
+.idea
+build
+build_debug_win
+build_debug_linux
+build_release_win
+build_release_linux
 *.bat
 main.cpp
 compile_commands.json
+html

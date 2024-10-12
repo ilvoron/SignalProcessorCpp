@@ -1,4 +1,4 @@
-# Signal Processing Library (SignalProcesserCPP)
+# Signal Processing Library (SignalProcessorCPP)
 
 This project provides a set of classes for signal generation, processing, noise
 application, numerical integration, file I/O, and visualization using GnuPlot.
@@ -26,8 +26,8 @@ parameters, and visualizing signals in a clear and flexible way.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/ilvoron/SignalProcesserCPP
-   cd SignalProcesserCPP
+   git clone https://github.com/ilvoron/SignalProcessorCPP
+   cd SignalProcessorCPP
    ```
 
 2. Build the project (assuming a C++ compiler, `cmake`, and `make` are
@@ -227,7 +227,7 @@ discuss what you would like to change.
 
 ## Classes Overview
 
-- **SignalProcesserException** - Custom exception class for handling errors
+- **SignalProcessingError** - Custom exception class for handling errors
   during signal processing.
 - **TSignalLine** - Represents a signal line made up of multiple points. It
   manages signal parameters such as time duration, frequency, amplitude, and
